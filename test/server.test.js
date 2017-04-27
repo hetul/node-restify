@@ -671,6 +671,11 @@ test('GH-77 uncaughtException (default behavior)', function (t) {
     CLIENT.get('/', function (err, _, res) {
         t.ok(err);
         t.equal(res.statusCode, 500);
+        t.ok(res.headers);
+
+        if (res.headers) {
+            t.equal(res.headers.connection, 'close', 'close connection');
+        }
         t.end();
     });
 });
